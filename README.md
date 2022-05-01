@@ -1,4 +1,4 @@
-Virtual machine for 32 bit CPU.
+# Virtual machine for 32 bit CPU.
 
 Virtual machine executes commands from Program.txt file.
 
@@ -8,7 +8,7 @@ The count of registers can be changed via REGISTERS_COUNT constant.
 
 Each command must have 32 bit length.
 
-Command is splited in 4 parts/bytes.
+Command is splited to 4 parts/bytes.
 
 ```
 Firs Byte - OPCODE(Operation Code)
