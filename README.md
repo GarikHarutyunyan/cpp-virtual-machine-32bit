@@ -59,3 +59,7 @@ Second bit of OPCODE show if ARGUMENT_2 is representing the immediate value or t
   *1****** - Immediate
   *0****** - Register's address
   ```
+
+VM has debugging mode, it's turned off by default and can be used by sending second boolean parameter to Cpu's run function.
+
+Main function includes demostration of small working programm. The programm get the integer and return the Fibonacci's number on that position.
