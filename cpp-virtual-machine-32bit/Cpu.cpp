@@ -32,10 +32,7 @@ stream Cpu::run(stream inputValue, bool debugMode) {
 		}
 		else {
 			int registerIndex = Utils::decoder4bit(ARGUMENT_1);
-			if (registerIndex != 1) {
-				// reg[1] is used as output so its value can't be used
-				value1 = this->reg[registerIndex];
-			}
+			value1 = this->reg[registerIndex];
 		}
 
 		if (OPCODE[6]) { // *1******
@@ -43,25 +40,19 @@ stream Cpu::run(stream inputValue, bool debugMode) {
 		}
 		else {
 			int registerIndex = Utils::decoder4bit(ARGUMENT_2);
-			if (registerIndex != 1) {
-				// reg[1] is used as output so its value can't be used
-				value2 = this->reg[registerIndex];
-			}
+			value2 = this->reg[registerIndex];
 		}
 
 
 		if (onConditionalMode) {
 			if (this->cond.run(OPCODE, value1, value2)) {
-				stream counterNewValue = Utils::streamSub(Utils::byteToStream(RESULT_ADDRESS), 1);
+				stream counterNewValue = Utils::byteToStream(RESULT_ADDRESS);
 				this->counter = counterNewValue;
 			}
 		}
 		else {
 			int registerIndex = Utils::decoder4bit(RESULT_ADDRESS);
-			if (registerIndex != 0) {
-				// reg[0] is used as input so its value can't be changed
-				this->reg[registerIndex] = this->alu.run(OPCODE, value1, value2);
-			}
+			this->reg[registerIndex] = this->alu.run(OPCODE, value1, value2);
 		}
 
 		if (debugMode)
@@ -78,6 +69,7 @@ void Cpu::printRegisters() {
 	for (int i = 2; i < REGISTERS_COUNT; i++) {
 		std::cout << "Register "<< i << ": " << this->reg[i] << std::endl;
 	}
-	std::cout << "Output " << ": " << this->reg[0] << std::endl;
+	std::cout << "Output " << ": " << this->reg[1] << std::endl;
+	std::cout << "Counter " << ": " << this->counter << std::endl;
 	std::cout << std::endl;
 }
