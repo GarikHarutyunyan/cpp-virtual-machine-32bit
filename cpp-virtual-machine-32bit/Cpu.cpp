@@ -2,6 +2,7 @@
 #include <istream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <algorithm>
 #include <iostream>
 
@@ -9,21 +10,20 @@ stream Cpu::run(stream inputValue, bool debugMode) {
 	this->reg[0] = inputValue;
 	stream value1, value2;
 
-	std::ifstream configFile;
-	std::string fileName = "Program.txt";
-	std::string currentCommandString;
-	configFile.open(fileName);
-	int sizeOfStream = inputValue.size() + 2; // stream length(32) + length of "/n"(2) = 10
+	std::string fileName = "Program.bin";
+	std::ifstream configFile(fileName, std::ios::binary);
+	std::vector<byte> program(std::istreambuf_iterator<char>(configFile), {});
 
-	while (getline(configFile, currentCommandString)) {
-		// counter++
-		this->counter = Utils::streamAdd(this->counter, 1);
+	while (Utils::binaryToInt(this->counter) + 3 < program.size()) {
+		int i = Utils::binaryToInt(this->counter);
 
-		stream currentCommand = Utils::stringToStream(currentCommandString);
-		byte OPCODE(currentCommandString.substr(0,8)); // Get first 8 bits from 32
-		byte ARGUMENT_1(currentCommandString.substr(8, 8));
-		byte ARGUMENT_2(currentCommandString.substr(16, 8));
-		byte RESULT_ADDRESS(currentCommandString.substr(24, 8));
+		// counter += 4
+		this->counter = Utils::streamAdd(this->counter, 4);
+
+		byte OPCODE(program[i]); // Get first 8 bits from 32
+		byte ARGUMENT_1(program[i+1]);
+		byte ARGUMENT_2(program[i+2]);
+		byte RESULT_ADDRESS(program[i+3]);
 
 		bool onConditionalMode = OPCODE[5];// **1***** 
 
@@ -68,10 +68,6 @@ stream Cpu::run(stream inputValue, bool debugMode) {
 		{
 			Cpu::printRegisters();
 		}
-
-		// Set index for configFile reading
-		int counterIntValue = Utils::binaryToInt(this->counter);
-		configFile.seekg((counterIntValue + 1) * sizeOfStream);
 	}
 
 	return this->reg[1];

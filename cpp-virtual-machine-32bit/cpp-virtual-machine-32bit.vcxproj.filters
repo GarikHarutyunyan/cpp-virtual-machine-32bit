@@ -65,4 +65,9 @@
       <Filter>Source Files\CPU</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Program.bin">
+      <Filter>Source Files\CPU</Filter>
+    </None>
+  </ItemGroup>
 </Project>
