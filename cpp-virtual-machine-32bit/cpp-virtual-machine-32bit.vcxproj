@@ -153,9 +153,6 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Program.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Program.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
