@@ -10,8 +10,6 @@ namespace Utils {
 	stream byteToStream(byte);
 	int decoder3bit(byte);
 	int decoder4bit(byte);
-	std::pair<bool, bool> bitHalfAdder(bool, bool);
-	std::pair<bool, bool> bitFullAdder(bool, bool, bool);
 	stream streamAdd(stream, stream);
 	stream streamNot(stream);
 	stream streamSignedNegator(stream);

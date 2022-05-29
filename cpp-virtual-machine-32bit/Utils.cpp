@@ -12,12 +12,6 @@ int Utils::binaryToInt(stream value) {
 	return result;
 }
 
-stream Utils::stringToStream(std::string value) {
-	stream result(value);
-
-	return result;
-}
-
 stream Utils::byteToStream(byte value) {
 	stream result = Utils::binaryToInt(value);
 
@@ -59,52 +53,14 @@ int Utils::decoder4bit(byte value)
 	return result;
 }
 
-std::pair<bool, bool> Utils::bitHalfAdder(bool value1, bool value2)
-{
-	bool carry = value1 & value2;
-	bool sum = value1 ^ value2;
-
-	return std::make_pair(carry, sum);
-}
-
-
-std::pair<bool, bool> Utils::bitFullAdder(bool value1, bool value2, bool value3)
-{
-	// Use Half adder on value1/value2, use half adder again for result's sum and value3
-	std::pair<bool, bool> result1 = Utils::bitHalfAdder(value1, value2);
-	bool carry1 = result1.first;
-	bool sum1 = result1.second;
-
-	std::pair<bool, bool> result2 = Utils::bitHalfAdder(sum1, value3);
-	bool carry2 = result2.first;
-	bool sum2 = result2.second;
-
-	// take sum2 as sum and (carry1 or carry2) as carry;
-	bool carry = carry1 | carry2;
-	bool sum = sum2;
-	return std::make_pair(carry, sum);
-}
-
 stream Utils::streamAdd(stream value1, stream value2) {
-	stream result;
-	bool carryBit = 0;
-	std::pair<bool, bool> currentResult;
-
-	for (int i = 0; i < value1.size(); i++) {
-		currentResult = Utils::bitFullAdder(carryBit, value1[i], value2[i]);
-
-		carryBit = currentResult.first;
-		result[i] = currentResult.second;
-	}
+	stream result = value1.to_ullong() + value2.to_ullong();
 
 	return result;
 }
 
 stream Utils::streamNot(stream value) {
-	stream result;
-	for (int i = 0; i < value.size(); i++) {
-		result[i] = ~value[i];
-	}
+	stream result = value.flip();
 
 	return result;
 }
