@@ -1,6 +1,6 @@
 # Virtual machine for 32 bit CPU.
 
-Virtual machine executes commands from Program.txt file.
+Virtual machine executes commands from Program.bin file.
 
 This CPU has 15 Registers, Counter(which indicates the index of commands). 
 First 2 registers are used as Input and Output for CPU.
