@@ -45,7 +45,7 @@ Conditional operations (=, !=, <, <=, >, >=), if the condition is true the value
   **0**010 - NOR
   **0**011 - AND
   **0**100 - ADD
-  **0**100 - SUB
+  **0**101 - SUB
   ```
 
 First two bits of OPCODE(on index 6,7) show the type of Arguments
