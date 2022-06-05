@@ -40,12 +40,12 @@ Conditional operations (=, !=, <, <=, >, >=), if the condition is true the value
   The last 3 bits of OPCODE show which insturction must be done between Value1 and Value2. 
   When we use ALU the RESULT_ADDRESS is used as calculation result's destination(register's index). 
   ```
-  **0**000 - OR
-  **0**001 - NAND
-  **0**010 - NOR
-  **0**011 - AND
-  **0**100 - ADD
-  **0**101 - SUB
+  **0**000 - ADD
+  **0**001 - SUB
+  **0**010 - AND
+  **0**011 - OR
+  **0**100 - NOT
+  **0**101 - XOR
   ```
 
 First two bits of OPCODE(on index 6,7) show the type of Arguments
